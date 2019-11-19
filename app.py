@@ -7,7 +7,7 @@ class Hello(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello, world")
 
-class User(tornado.web.RequestHandler):
+""" class User(tornado.web.RequestHandler):
     def get(self):
         form = """<form method="post">
         <input type="text" name="username"/>
@@ -19,7 +19,7 @@ class User(tornado.web.RequestHandler):
     def post(self):
         username = self.get_argument('username')
         designation = self.get_argument('designation')
-        self.write("Wow " + username + " you're a " + designation)
+        self.write("Wow " + username + " you're a " + designation) """
 
 class post_project_template(tornado.web.RequestHandler):
     def post(self):
@@ -28,7 +28,7 @@ class post_project_template(tornado.web.RequestHandler):
 
 application = tornado.web.Application([
     (r"/", Hello),
-    (r"/user", User),
+    """ (r"/user", User), """
     (r"/post_project_template", post_project_template)
 ], debug=True)
 
@@ -38,4 +38,3 @@ if __name__ == "__main__":
     tornado.autoreload.start()
     tornado.ioloop.IOLoop.current().start()
 
-""" print("hello world") """
