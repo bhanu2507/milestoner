@@ -3,12 +3,19 @@ import json
 import os
 
 def create_template(tjson, tname):
-    with open(os.path.join("templates", tname + ".txt"), 'w') as outfile:
-        json.dump(tjson, outfile)
+    try:
+        with open(os.path.join("templates", tname + ".txt"), 'w') as outfile:
+            json.dump(tjson, outfile)
+        return 1
+    except:
+        return 0        
 
 class post_project_template(tornado.web.RequestHandler):
     def post(self):
-        """ print(self.request.body) """
-        print(json.loads(self.request.body))
-        create_template(json.loads(self.request.body), self.get_argument("tname") )
-        self.write('successfully posted')
+        try:
+            if create_template(json.loads(self.request.body), self.get_argument("tname")) == 1:
+                self.write("Created")
+            else:
+                self.write("Failed to create the template")    
+        except:
+            self.write('failed')
